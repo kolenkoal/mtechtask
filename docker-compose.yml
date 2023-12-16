@@ -4,8 +4,12 @@ services:
     build: WebAPI
     ports:
       - "8000:8000"
+    networks:
+      - backend_network
+      - db_network
     depends_on:
       - db
+
   db:
     image: postgres
     environment:
@@ -15,5 +19,23 @@ services:
     volumes:
       - ./WebAPI/core/schemas/scripts/db.sql:/docker-entrypoint-initdb.d/db.sql
       - db-data:/var/lib/postgresql/data
+    networks:
+      - db_network
+
+  client:
+    build: client
+    environment:
+      NUM_THREADS: 2
+      MAX_DELAY_MS: 1000
+    networks:
+      - backend_network
+
 volumes:
   db-data:
+
+networks:
+  db_network:
+    driver: bridge
+
+  backend_network:
+    driver: bridge
