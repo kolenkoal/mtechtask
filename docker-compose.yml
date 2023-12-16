@@ -36,6 +36,8 @@ services:
       - backend_network
     depends_on:
       - web
+    logging:
+      driver: none
 
   background:
     build: background
