@@ -1,7 +1,7 @@
 version: "3"
 services:
   web:
-    build: ./app
+    build: WebAPI
     ports:
       - "8000:8000"
     depends_on:
