@@ -1,7 +1,5 @@
 FROM python:3.9
 
-COPY wait-for-web.sh /app/wait-for-web.sh
-
 WORKDIR /app
 
 COPY requirements.txt /app/requirements.txt
@@ -9,9 +7,5 @@ COPY requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
 
 COPY . /app
-
-RUN chmod +x /app/wait-for-web.sh
-
-ENTRYPOINT ["/app/wait-for-web.sh"]
 
 CMD ["python", "main.py"]
