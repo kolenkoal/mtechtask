@@ -4,8 +4,6 @@ import threading
 import time
 import random
 
-from starlette import status
-
 
 def send_request(ip, http_method, uri, http_response, log_file):
     log_text = f"{ip} {http_method} {uri} {http_response}"
@@ -34,9 +32,9 @@ log_file_path = 'logging.txt'
 while True:
     for _ in range(num_threads):
         ip_address = '192.168.1.1'
-        http_method = random.choice(["GET", "POST", "DELETE", "PUT"])
-        uri = '/example'
-        http_response = random.randint(200, 500)
+        http_method = "POST"
+        uri = '/api/data'
+        http_response = random.choice([201, 418])
 
         thread = threading.Thread(target=send_request, args=(
             ip_address, http_method, uri, http_response, log_file_path))
