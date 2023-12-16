@@ -2,6 +2,7 @@ version: "3"
 services:
   web:
     build: WebAPI
+    restart: always
     ports:
       - "8000:8000"
     networks:
@@ -12,6 +13,7 @@ services:
 
   db:
     image: postgres
+    restart: always
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
@@ -24,6 +26,7 @@ services:
 
   client:
     build: client
+    restart: always
     environment:
       NUM_THREADS: 2
       MAX_DELAY_MS: 3000
@@ -31,6 +34,19 @@ services:
       - ./client/logging.txt:/app/logging.txt
     networks:
       - backend_network
+    depends_on:
+      - web
+
+  background:
+    build: background
+    volumes:
+      - ./background/logs.txt:/app/logs.txt
+    restart: always
+    networks:
+      - backend_network
+    depends_on:
+      - db
+      - web
 
 volumes:
   db-data:

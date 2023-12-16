@@ -4,6 +4,8 @@ import threading
 import time
 import random
 
+from starlette import status
+
 
 def send_request(ip, http_method, uri, http_response, log_file):
     log_text = f"{ip} {http_method} {uri} {http_response}"
@@ -11,11 +13,14 @@ def send_request(ip, http_method, uri, http_response, log_file):
     payload = {"log": log_text}
     headers = {"Content-Type": "application/json"}
 
-    requests.post('http://web:8000/api/data/', json=payload,
-                  headers=headers)
+    response = requests.post('http://web:8000/api/data/', json=payload,
+                             headers=headers)
 
-    with open(log_file, 'a') as file:
-        file.write(log_text + '\n')
+    print(response.status_code)
+
+    if response.status_code == 201:
+        with open(log_file, 'a') as file:
+            file.write(log_text + '\n')
 
 
 def random_delay(max_delay):

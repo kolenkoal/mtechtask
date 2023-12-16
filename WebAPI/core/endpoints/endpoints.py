@@ -18,7 +18,7 @@ async def process_log(request_data: LogRequest):
         ip_address, http_method, uri, http_status = request_data.log.split()
     except ValueError:
         raise HTTPException(status_code=status.HTTP_418_IM_A_TEAPOT,
-                            detail="Что-то пошло не так")
+                            detail="Что-то пошло не так 1")
 
     query = """
     INSERT INTO log_entries (ip_address, http_method, uri, http_status)
@@ -31,13 +31,13 @@ async def process_log(request_data: LogRequest):
         result = execute_query(query, params)
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_418_IM_A_TEAPOT,
-                            detail="Что-то пошло не так")
+                            detail="Что-то пошло не так 2")
 
     if result:
         return {"message": "Лог сохранен"}
     else:
         raise HTTPException(status_code=status.HTTP_418_IM_A_TEAPOT,
-                            detail="Что-то пошло не так")
+                            detail="Что-то пошло не так 3")
 
 
 @router.get("/api/data/", status_code=status.HTTP_200_OK)
