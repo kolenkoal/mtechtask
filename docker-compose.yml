@@ -11,9 +11,9 @@ services:
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: mtekhtest
       POSTGRES_HOST: db
     volumes:
+      - ./WebAPI/core/schemas/scripts/db.sql:/docker-entrypoint-initdb.d/db.sql
       - db-data:/var/lib/postgresql/data
 volumes:
   db-data:

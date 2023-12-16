@@ -7,7 +7,7 @@ def get_db_connection():
     :return:
     """
     return psycopg2.connect(
-        dbname="mtekhtest",
+        dbname="mtekhtest1",
         user="user",
         password="password",
         host="db"

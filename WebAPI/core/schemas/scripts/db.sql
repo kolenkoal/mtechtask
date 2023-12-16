@@ -1,10 +1,10 @@
-CREATE DATABASE mtekhtest;
+CREATE DATABASE mtekhtest1;
 
-\c;
+\c mtekhtest1;
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-CREATE TABLE log_entries (
+CREATE TABLE IF NOT EXISTS log_entries (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
     ip_address VARCHAR NOT NULL,
     http_method VARCHAR NOT NULL,

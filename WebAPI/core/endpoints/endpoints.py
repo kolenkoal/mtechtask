@@ -31,13 +31,13 @@ async def process_log(request_data: LogRequest):
         result = execute_query(query, params)
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_418_IM_A_TEAPOT,
-                            detail="Что-то пошло не так zdarova")
+                            detail="Что-то пошло не так")
 
     if result:
         return {"message": "Лог сохранен"}
     else:
         raise HTTPException(status_code=status.HTTP_418_IM_A_TEAPOT,
-                            detail="Что-то пошло не так poka")
+                            detail="Что-то пошло не так")
 
 
 @router.get("/api/data/", status_code=status.HTTP_200_OK)
