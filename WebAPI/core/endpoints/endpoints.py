@@ -11,14 +11,14 @@ router = APIRouter()
 async def process_log(request_data: LogRequest):
     """
     Функция, которая обрабатывает пришедшую строку и сохраняет ее в базу данных.
-    :param request_data: {"log": "{IP-adress} {HTTP Method} {URI} {HTTP Response}"}
+    :param request_data: {"log": "{IP-address} {HTTP Method} {URI} {HTTP Response}"}
     :return: Response
     """
     try:
         ip_address, http_method, uri, http_status = request_data.log.split()
     except ValueError:
         raise HTTPException(status_code=status.HTTP_418_IM_A_TEAPOT,
-                            detail="Что-то пошло не так 1")
+                            detail="Что-то пошло не так")
 
     query = """
     INSERT INTO log_entries (ip_address, http_method, uri, http_status)
@@ -31,13 +31,13 @@ async def process_log(request_data: LogRequest):
         result = execute_query(query, params)
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_418_IM_A_TEAPOT,
-                            detail="Что-то пошло не так 2")
+                            detail="Что-то пошло не так")
 
     if result:
         return {"message": "Лог сохранен"}
     else:
         raise HTTPException(status_code=status.HTTP_418_IM_A_TEAPOT,
-                            detail="Что-то пошло не так 3")
+                            detail="Что-то пошло не так")
 
 
 @router.get("/api/data/", status_code=status.HTTP_200_OK)
