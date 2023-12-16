@@ -1,6 +1,6 @@
-CREATE DATABASE mtekhtest1;
+CREATE DATABASE mtechtask;
 
-\c mtekhtest1;
+\c mtechtask;
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
