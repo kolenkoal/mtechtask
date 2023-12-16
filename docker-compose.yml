@@ -26,7 +26,9 @@ services:
     build: client
     environment:
       NUM_THREADS: 2
-      MAX_DELAY_MS: 1000
+      MAX_DELAY_MS: 3000
+    volumes:
+      - ./client/logging.txt:/app/logging.txt
     networks:
       - backend_network
 
